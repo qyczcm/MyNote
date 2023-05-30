@@ -59,9 +59,9 @@
     - [6.3.3 Date](#633-date)
     - [6.3.4 Pragma](#634-pragma)
     - [6.3.5 Trailer](#635-trailer)
-    - [6.3.6　Transfer-Encoding](#636transfer-encoding)
-    - [6.3.7　Upgrade](#637upgrade)
-    - [6.3.8　Via](#638via)
+    - [6.3.6 Transfer-Encoding](#636-transfer-encoding)
+    - [6.3.7 Upgrade](#637-upgrade)
+    - [6.3.8 Via](#638-via)
     - [6.3.9　Warning](#639warning)
   - [6.4 请求首部字段](#64-请求首部字段)
     - [6.4.1　Accept](#641accept)
@@ -381,14 +381,14 @@ Pragma: no-cache
 
 ### 6.3.5 Trailer
 ![图 55](images/3a77c9259ce795aaa5370ecb52a92f3065dc749e8e025d3e18dd3934f6b18e23.png)  
-### 6.3.6　Transfer-Encoding
+### 6.3.6 Transfer-Encoding
 ![图 56](images/a98e539b442bfe4769b20e961a2c9a208a6a47ef455806d406eedabbb14cb355.png)  
 HTTP/1.1 的传输编码方式仅对分块传输编码有效
 
-### 6.3.7　Upgrade
+### 6.3.7 Upgrade
 ![图 57](images/94cf6f5743c04e33ed119a57e0e75bbe2045f06847d54e23aa3c6293da95f83e.png)  
 
-### 6.3.8　Via
+### 6.3.8 Via
 ![图 58](images/7e5e4ac997ccee5e034d94b64614dc3da3a6e2a87cab6496ecdae5c59b89a98f.png)  
 ### 6.3.9　Warning
 略
