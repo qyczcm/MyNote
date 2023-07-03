@@ -223,3 +223,12 @@ In summary, the construction of three-dimensional functional tissues poses signi
 
 - 这些结构包括特定的细胞排列和相互连接，在组织功能中起着至关重要的作用。  
   These structures include specific cellular arrangements and interconnections, which play a crucial role in tissue function.
+- 例如，肝脏由称为肝小叶的许多功能单位组成，它们负责各种代谢过程。
+  The liver is composed of numerous functional units called hepatic lobules, which are responsible for various metabolic processes.
+- The hepatic lobule consists of hepatocytes arranged in a unique pattern known as the liver acinus or liver plate structure. This arrangement allows for efficient nutrient exchange, waste removal, and metabolic functions within the liver. The hepatocytes form interconnected cords or plates that radiate outward from the central vein, creating a complex network of cell-to-cell interactions.  
+  肝小叶由排列成独特模式的肝细胞组成，称为肝腺泡或肝板结构。这种安排允许有效的营养交换，废物清除和肝脏内的代谢功能。肝细胞形成相互连接的索或板，从中央静脉向外辐射，形成细胞间相互作用的复杂网络。
+- Considering these orchestrated cellular Cell arrangement structure  ，To reproduce the structure and function of a native organization, several technical requirements need to be met
+考虑到这些精心安排的细胞排列结构，想要复现原生组织的结构和功能，需要满足一下几点技术需求
+- 1、在细胞种类和细胞密度上模拟天然组织  
+2、在解剖学上类似于相似的天然组织的 __复杂__ 三维细胞排列，形成细胞-细胞间相互连接  
+3、由生物相容性，可生物降解和组织粘附的生物材料组成
