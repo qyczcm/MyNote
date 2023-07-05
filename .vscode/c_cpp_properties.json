@@ -3,7 +3,14 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "e:/mingw/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include/c++/11.2.0",
+                "e:/mingw/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include/c++/11.2.0/x86_64-w64-mingw32",
+                "e:/mingw/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../include/c++/11.2.0/backward",
+                "e:/mingw/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include",
+                "e:/mingw/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/include-fixed",
+                "e:/mingw/mingw/bin/../lib/gcc/x86_64-w64-mingw32/11.2.0/../../../../x86_64-w64-mingw32/include"
+
             ],
             "defines": [
                 "_DEBUG",
