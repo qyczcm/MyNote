@@ -19,10 +19,10 @@ int main()
 
     //2.绑定
     struct sockaddr_in saddr;
-    inet_pton()
+    //inet_pton()
     saddr.sin_family = AF_INET;
-    saddr.sin_addr.S_addr = 
-    bind(lfd,)
+    //saddr.sin_addr.S_addr = 
+    //bind(lfd,)
 
     return 0;
 }
