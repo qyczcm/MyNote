@@ -19,6 +19,10 @@
     - [TCP通信流程](#tcp通信流程)
     - [TCP三次握手](#tcp三次握手)
     - [TCP四次挥手](#tcp四次挥手)
+    - [TCP通信并发](#tcp通信并发)
+    - [I/O模型](#io模型)
+    - [I/O多路复用](#io多路复用)
+      - [select](#select)
 
 # 一、 __c++基础__
 ## 1.1 语言基础
@@ -179,9 +183,80 @@ tcp：传输控制协议，面向连接的，可靠的、基于字节，仅支�
 ### TCP四次挥手
 ![图 11](images/8990974779683dc1a4e005a7e4f0afc3b3cd4414e7a248c351580454ed7d79df.png)  
 
+![图 12](images/dbe76dd9989fec7f72ef652c606d14b7a7d510fc51ac025d7b6d519be33acfc2.png)  
+
+
 ### TCP通信并发
 - 要实现TCP通信服务器处理并发的任务，使用多线程或者多进程解决
 思路：  
     1. 一个父进程，多个子进程
     2. 父进程负责等待并接受客户端的连接
     3. 子进程：完成通信，接受一个客户端连接,就创建一个子进程用于通信
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Server
+    Client->>Server: SYN=1, Seq=ClientSeqNo
+    Server-->>Client: SYN=1, ACK=ClientSeqNo+1, Seq=ServerSeqNo
+    Client->>Server: ACK=ServerSeqNo+1
+
+```
+### I/O模型
+- 阻塞等待
+  - 好处：不占用CPU宝贵的时间片
+  - 缺点：同一时刻只能处理一个操作，效率低
+    - 多线程或者多进程解决-BIO模型
+      - 缺点：
+        - 1.线程或者进程会消耗资源
+        - 2.线程或者进程调度消耗CPU资源
+        - __根本问题__：blocking
+- 非阻塞，忙轮询
+  - 优点：提高了程序的执行效率
+  - 缺点：需要占用更多的CPU和系统资源
+    - __<font color = "#dd0000">>使用IO多路转接技术select/poll/epoll</font>__
+- IO多路转接技术
+  - 第一种：select/poll --<font color = "#dd0000">委托内核</font>
+    - select代收只会告诉你有几个快递到了，但是哪个快递，你需要挨个遍历
+  - 第二种：epoll
+    - epoll不仅会告诉你有几个快递到了，还会告诉你是哪个快递公司的快递
+
+
+  
+### I/O多路复用
+I/O多路复用使得程序能同时监听多个文件描述符，能够提高程序的性能，Linux下实现I/O多路复用的系统调用主要有select、poll和epoll
+
+
+#### <table><tr><td bgcolor=grey>select</td></tr></table>
+__主旨思想__：
+  1. 首先要构造一个关于文件描述符的列表，将要监听的文件描述符添加到该列表中。
+  2. 调用一个系统函数，监听该列表中的文件描述符，直到这些描述符中的一个或者多个进程I/O操作时，该函数才返回  
+    a. 这个函数是阻塞
+    b. 函数对文件描述符的检测的操作是由内核完成的
+  3. 在返回时，它会告诉进程有多少描述符要进程I/O操作
+~~~c
+#include <sys/time.h> 
+#include <unistd.h> 
+ 
+int select(
+int maxfd,    //监听的文件描述符的值最大的一个+1
+fd_set * readfds,  //可读事件文件描述符集合
+fd_set * writefds,  //可写事件文件描述符集合
+struct timeval * timeout //函数监听时间  写 NULL 则变成阻塞等待
+);
+
+int fd = open("a.txt",O_CREATE|O_RDONLY,0644);  //获取一个文件描述符
+fd_set se;      //声明描述符集合
+FD_SET(fd,&se); //将fd这个文件描述符 添加到 文件描述符集合中
+
+int fd = open("a.txt",O_CREATE|O_RDONLY,0644);  //获取一个文件描述符
+fd_set se;      //声明描述符集合
+FD_CLR(fd,&se); //将fd从文件描述符集合se中清除
+
+FD_ZERO(&se); //清空集合se中的所有位
+
+fd_set se;      
+FD_ISSET(fd,&se); //测试指定的文件描述符是否在该集合中
+~~~
+fd_set 结构体看做一个整形数组，不超过1024
+
