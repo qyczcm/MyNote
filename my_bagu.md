@@ -23,6 +23,8 @@
     - [I/O模型](#io模型)
     - [I/O多路复用](#io多路复用)
       - [select](#select)
+      - [poll](#poll)
+      - [epoll](#epoll)
 
 # 一、 __c++基础__
 ## 1.1 语言基础
@@ -258,5 +260,34 @@ FD_ZERO(&se); //清空集合se中的所有位
 fd_set se;      
 FD_ISSET(fd,&se); //测试指定的文件描述符是否在该集合中
 ~~~
-fd_set 结构体看做一个整形数组，不超过1024
+- fd_set 结构体看做一个整形数组，不超过1024
+- select()的缺点：
+  1. 每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大
+  2. 每次同时调用select都需要在内核遍历传递进来的所有fd，这个开销在fd很多时也很大
+  3. select支持的文件描述符数量太小了，默认是1024
+  4. fds集合不能重用，每次都需要重置
 
+#### <font size = 5 >poll</font>
+poll()没有最大文件描述符数量的限制
+
+~~~c
+#include <poll.h>
+
+int poll(struct pollfd *fds,//是一个struct pollfd结构体数组，是一个需要检测的文件描述符的集合
+nfds_t nfds, //用来指定第一个参数数组元素个数
+int timeout); //指定等待的毫秒数，无论 I/O 是否准备好，poll() 都会返回.
+
+struct pollfd{
+	int fd;			//文件描述符
+	short events;	//等待的事件
+	short revents;	//实际发生的事件
+};
+
+~~~
+|`timeout值` |`说明`|
+|:----:|:----:|
+|-1 | 阻塞 |
+|0  |不阻塞|
+|>0 |阻塞时长（毫秒）|
+
+#### epoll
