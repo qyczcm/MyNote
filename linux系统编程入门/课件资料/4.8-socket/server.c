@@ -5,6 +5,7 @@
 // #include <sys/types.h>
 // #include <sys/socket.h>
 #include <stdio.h>
+#include <pthread.h>
 
 
 
@@ -23,6 +24,6 @@ int main()
     saddr.sin_family = AF_INET;
     //saddr.sin_addr.S_addr = 
     //bind(lfd,)
-
+    pthread_mutex_lock();
     return 0;
 }
