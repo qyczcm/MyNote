@@ -1,0 +1,983 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>my_bagu.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<ul>
+<li><a href="#%E4%B8%80-c%E5%9F%BA%E7%A1%80">一、 <strong>c++基础</strong></a>
+<ul>
+<li><a href="#11-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80">1.1 语言基础</a>
+<ul>
+<li><a href="#111-%E7%AE%80%E8%BF%B0%E4%B8%8Bc%E8%AF%AD%E8%A8%80%E7%9A%84%E7%89%B9%E7%82%B9">1.1.1 简述下C++语言的特点</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#%E4%BA%8C-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80">二、 <strong>计算机网络基础</strong></a>
+<ul>
+<li><a href="#1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E6%A8%A1%E5%9E%8B">1、 <strong>计算机体系模型</strong></a>
+<ul>
+<li><a href="#11-%E5%90%84%E5%B1%82%E6%A8%A1%E5%9E%8B">1.1 各层模型</a></li>
+<li><a href="#12-%E5%8D%8F%E8%AE%AE">1.2 协议</a>
+<ul>
+<li><a href="#121-%E5%B8%B8%E8%A7%81%E5%8D%8F%E8%AE%AE">1.2.1 常见协议</a></li>
+<li><a href="#udp%E5%8D%8F%E8%AE%AE">UDP协议</a></li>
+<li><a href="#tcp%E5%8D%8F%E8%AE%AE"><strong>TCP协议</strong></a></li>
+<li><a href="#ip%E5%8D%8F%E8%AE%AE"><strong>IP协议</strong></a></li>
+<li><a href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E5%8D%8F%E8%AE%AE">以太网帧协议</a></li>
+<li><a href="#arp%E5%8D%8F%E8%AE%AE-%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE">ARP协议-地址解析协议</a></li>
+</ul>
+</li>
+<li><a href="#%E5%B0%81%E8%A3%85"><strong>封装</strong></a></li>
+<li><a href="#%E5%88%86%E7%94%A8%E8%A7%A3%E5%B0%81%E8%A3%85"><strong>分用（解封装）</strong></a></li>
+<li><a href="#socket%E5%A5%97%E6%8E%A5%E5%AD%97"><strong>socket(套接字)</strong></a>
+<ul>
+<li><a href="#%E5%AD%97%E8%8A%82%E5%BA%8F"><strong>字节序</strong></a></li>
+<li><a href="#%E5%AD%97%E8%8A%82%E5%BA%8F%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0">字节序转换函数</a></li>
+</ul>
+</li>
+<li><a href="#tcp%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B">TCP通信流程</a></li>
+<li><a href="#tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B">TCP三次握手</a></li>
+<li><a href="#tcp%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B">TCP四次挥手</a></li>
+<li><a href="#tcp%E9%80%9A%E4%BF%A1%E5%B9%B6%E5%8F%91">TCP通信并发</a></li>
+<li><a href="#io%E6%A8%A1%E5%9E%8B">I/O模型</a></li>
+<li><a href="#io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8">I/O多路复用</a>
+<ul>
+<li><a href="#select">select</a></li>
+<li><a href="#poll">poll</a></li>
+<li><a href="#epoll">epoll</a></li>
+<li><a href="#epoll%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F">epoll的工作模式：</a></li>
+</ul>
+</li>
+<li><a href="#udp%E9%80%9A%E4%BF%A1">UDP通信</a>
+<ul>
+<li><a href="#%E5%B9%BF%E6%92%AD">广播</a></li>
+<li><a href="#%E7%BB%84%E6%92%AD%E5%A4%9A%E6%92%AD">组播（多播）</a></li>
+<li><a href="#%E6%9C%AC%E5%9C%B0%E5%A5%97%E6%8E%A5%E5%AD%97%E6%9C%AC%E5%9C%B0%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1">本地套接字：本地进程间通信</a></li>
+</ul>
+</li>
+<li><a href="#1%E9%98%BB%E5%A1%9E%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5">1.阻塞/非阻塞、同步/异步</a></li>
+<li><a href="#unixlinux%E4%B8%8A%E7%9A%84%E4%BA%94%E7%A7%8Dio%E6%A8%A1%E5%9E%8B">Unix/Linux上的五种IO模型</a></li>
+<li><a href="#web-server">Web Server</a></li>
+<li><a href="#http%E5%8D%8F%E8%AE%AE%E5%BA%94%E7%94%A8%E5%B1%82%E7%9A%84%E5%8D%8F%E8%AE%AE">HTTP协议（应用层的协议）</a></li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6">服务器编程基本框架</a></li>
+<li><a href="#%E4%B8%A4%E7%A7%8D%E9%AB%98%E6%95%88%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%A8%A1%E5%BC%8F">两种高效的事件处理模式</a>
+<ul>
+<li><a href="#reactor">Reactor</a></li>
+<li><a href="#proactor">Proactor</a></li>
+<li><a href="#%E6%A8%A1%E6%8B%9Fproactor">模拟Proactor</a></li>
+</ul>
+</li>
+<li><a href="#%E7%BA%BF%E7%A8%8B%E6%B1%A0">线程池</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="%E4%B8%80-c%E5%9F%BA%E7%A1%80">一、 <strong>c++基础</strong></h1>
+<h2 id="11-%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80">1.1 语言基础</h2>
+<h3 id="1%E6%8C%87%E9%92%88%E5%92%8C%E5%BC%95%E7%94%A8%E7%9A%84%E5%8C%BA%E5%88%AB">1.指针和引用的区别</h3>
+<ul>
+<li>指针和引用的本质是什么
+<ul>
+<li>指针是存放内存地址的一种变量,因此指针的大小不会像其他变量一样变化，只跟当前平台有关，64位平台下是8</li>
+<li>引用的本质是“变量的别名”，就是给变量又重新起了一个名字，既然是别名，那么就一定要有本体</li>
+</ul>
+</li>
+<li>声明和初始化时的区别
+<ul>
+<li>指针指向的是一个内存地址， 因此可以指向一块为0x00000000的地址，声明时可以暂时不初始化（不推荐），即pointer = NULL</li>
+<li>引用是变量的别名，别名就一定对应着一个“本名”，因此必须在声明时就初始化，且不能初始化为空。</li>
+</ul>
+</li>
+</ul>
+<pre class="hljs"><code><div>
+</div></code></pre>
+<h1 id="%E4%BA%8C-%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80">二、 <strong>计算机网络基础</strong></h1>
+<h2 id="1-%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%BD%93%E7%B3%BB%E6%A8%A1%E5%9E%8B">1、 <strong>计算机体系模型</strong></h2>
+<h3 id="11-%E5%90%84%E5%B1%82%E6%A8%A1%E5%9E%8B">1.1 各层模型</h3>
+<ul>
+<li>OSI七层模型：物理层、数据链路层、网络层、传输层、会话层、表示层、应用层</li>
+<li>TCP/IP四层模型：网络接口层、网络层、传输层、应用层</li>
+<li>五层模型：物理层、数据链路层、网络层、传输层、应用层
+<img src="images/47ce1eb503708cbc0b03c5953c787596583542f0e5e76c11077d5683daac078b.png" alt="图 0"></li>
+</ul>
+<h3 id="12-%E5%8D%8F%E8%AE%AE">1.2 协议</h3>
+<h4 id="121-%E5%B8%B8%E8%A7%81%E5%8D%8F%E8%AE%AE">1.2.1 常见协议</h4>
+<ul>
+<li><strong>应用层</strong> 常见协议：
+<ul>
+<li>DNS、Telnet、SMTP、HTTP、</li>
+<li>FTP (File Transfer Protocol 文件传输协议)</li>
+</ul>
+</li>
+<li><strong>传输层</strong> 常见协议：
+<ul>
+<li>TCP (Transmission control Protocol 传输控制协议)</li>
+<li>UDP (user datagram Protocol 用户数据报协议)</li>
+</ul>
+</li>
+<li><strong>网络层</strong> 常见协议：IP (Internet Protocol 因特网互联协议)
+<ul>
+<li>ICMP、ARP、RARP、OSPF、IPX、RIP、IGRP</li>
+</ul>
+</li>
+</ul>
+<h4 id="udp%E5%8D%8F%E8%AE%AE">UDP协议</h4>
+<p><img src="images/d984fe66808ccf32764aa0f111d2068efed55835ccf6ab7c8cd7f351fed0cba6.png" alt="图 1"></p>
+<ol>
+<li>源端口号：发送方端口号</li>
+<li>目的端口号：接收方端口号</li>
+<li>长度：UDP用户数据报的长度，最小值是8（仅有首部）</li>
+<li>校验和：检测UDP用户数据报在传输中是否有错，有错就丢弃</li>
+</ol>
+<h4 id="tcp%E5%8D%8F%E8%AE%AE"><strong>TCP协议</strong></h4>
+<p><img src="images/3853135e886ef8cc56bee5269f5ddcdad928226ddd337bf369bf9868b84eb84d.png" alt="图 2   1"></p>
+<ol>
+<li>源端口号：发送方端口号</li>
+<li>目的端口号：接收方端口号</li>
+<li>六个控制位：
+<ol>
+<li>URG</li>
+<li>ACK</li>
+<li>PSH</li>
+<li>RST</li>
+<li>SYN</li>
+<li>FIN</li>
+</ol>
+</li>
+</ol>
+<h4 id="ip%E5%8D%8F%E8%AE%AE"><strong>IP协议</strong></h4>
+<p><img src="images/5d70d9e89e763b5aba56f1e7b750fc2591191e457b8973e7263c93ff36109996.png" alt="图 4"></p>
+<p><strong>生存时间TTL</strong>：占8位，表明IP数据报文在网路中的 <strong>寿命</strong>，每经过一个设备（不管是路由器还是计算机），TTL减一，当TTL=0时，网络设备必须丢弃该报文（它解决的就是，当网络报文找不到终点的时候，避免网络报文在网络中无限的传输，以消耗带宽）
+<strong>八位协议</strong>:占8位，表明IP数据所携带的具体数据是什么协议的（如TCP、UDP等，一些协议对应的值，可参考下图）
+<img src="images/6413987f2a0b40d5a495e9b1a4445e1290e97a5bb5069af43b9396741b036172.png" alt="图 5"></p>
+<h4 id="%E4%BB%A5%E5%A4%AA%E7%BD%91%E5%B8%A7%E5%8D%8F%E8%AE%AE">以太网帧协议</h4>
+<h4 id="arp%E5%8D%8F%E8%AE%AE-%E5%9C%B0%E5%9D%80%E8%A7%A3%E6%9E%90%E5%8D%8F%E8%AE%AE">ARP协议-地址解析协议</h4>
+<p>地址解析协议，即ARP（Address Resolution Protocol），是根据IP地址获取物理地址的一个TCP/IP协议。</p>
+<ul>
+<li>IP寻址的过程（ARP协议工作）
+<ul>
+<li>Ip寻址的工作原理</li>
+<li>本地网络寻址</li>
+</ul>
+</li>
+<li>ARP数据包-28个字节
+<img src="images/bb3af7d06537090171c9092cc448cb8708d55e3119dd51d18a01f91a7b2fcea4.png" alt="图 7"></li>
+</ul>
+<ol>
+<li>硬件类型：1表示mac地址</li>
+<li>协议类型：0X800表示IP协议</li>
+<li>硬件地址长度：1个字节，对于以太网的值为6</li>
+<li>协议地址长度：4</li>
+<li>操作码：1表示ARP请求，2表示ARP应答</li>
+<li><strong>目的逻辑地址</strong>：这是一个可变长度字段，用来定义目标的逻辑 <strong>（IP）</strong> 地址，对于IPv4协议这个字段的长度为4个字节。</li>
+</ol>
+<p>以太网帧头：14个字节
+帧总长度 = 帧头 + ARP包头 = 14 + 28 = 42 bytes；<br>
+而真正 发包的时为了保证以太网帧的最小帧长为64 bytes，会在报文里添加一个padding字段，用来填充数据包大小。
+报文总长度：64个字节</p>
+<h3 id="%E5%B0%81%E8%A3%85"><strong>封装</strong></h3>
+<p>上层协议是如何使用下层协议提供的服务的呢？是通过封装实现的。应用程序数据在发送到物理网络上之前，将沿着协议栈从上往下依次传递。每层协议都将在上层数据的基础上加上自己的头部信息，以实现该层的功能，这个过程就称为封装。</p>
+<h3 id="%E5%88%86%E7%94%A8%E8%A7%A3%E5%B0%81%E8%A3%85"><strong>分用（解封装）</strong></h3>
+<p><img src="images/f1763675283e8eda83abc577a7230000cf3465ff686d7baf31e3b8ed27ddd0c5.png" alt="图 6"></p>
+<h3 id="socket%E5%A5%97%E6%8E%A5%E5%AD%97"><strong>socket(套接字)</strong></h3>
+<p>所谓socket，就是对网络中不同主机上的应用进程之间进行双向通信的端点的抽象，一个套接字就是网络上的进程通信的一端，提供了应用层进程利用网络协议交换数据的机制</p>
+<ul>
+<li>socket是由IP地址和端口结合的，提供向应用层进程传送数据包的机制</li>
+<li>套接字通信分两部分：（类似插座）
+<ul>
+<li>服务器端：被动接受连接，一般不会主动发起连接</li>
+<li>客户端：主动向服务器发起连接</li>
+</ul>
+</li>
+</ul>
+<h4 id="%E5%AD%97%E8%8A%82%E5%BA%8F"><strong>字节序</strong></h4>
+<p>字节序，顾名思义字节的顺序，就是大于一个字节类型的数据在内存中的存放顺序（一个字节的数据当然就无需谈顺序的问题了）</p>
+<ul>
+<li>大端字节序
+<img src="images/3e5ecc3583f9cb1397ae81e06f70b75143018e7f20d2af5aa8e6cbd75ea6b286.png" alt="图 8"></li>
+</ul>
+<pre class="hljs"><code><div>h   - host 主机，主机字节序
+to  - 转换成什么
+n   - network 网络字节序
+s   - short——转换端口
+l   - long——转换IP
+</div></code></pre>
+<ul>
+<li>小端字节序</li>
+</ul>
+<h4 id="%E5%AD%97%E8%8A%82%E5%BA%8F%E8%BD%AC%E6%8D%A2%E5%87%BD%E6%95%B0">字节序转换函数</h4>
+<ul>
+<li><strong>网络字节顺序</strong> 是TCP/IP中规定好的一种数据表示格式，采用大端排序方式</li>
+</ul>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">unsigned</span> short <span class="hljs-title">ntohs</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> short)</span></span>;  <span class="hljs-comment">//将16位的网络字节序转换为</span>
+主机字节序
+<span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span> <span class="hljs-title">ntohl</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>)</span></span>;    <span class="hljs-comment">//将32位的网络字节序转换为主机字节序</span>
+<span class="hljs-function"><span class="hljs-keyword">unsigned</span> short <span class="hljs-title">htons</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> short )</span></span>; <span class="hljs-comment">//将16位的主机字节序转换为网络字节序</span>
+<span class="hljs-function"><span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>  <span class="hljs-title">htonl</span> <span class="hljs-params">(<span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">long</span>)</span></span>;  <span class="hljs-comment">//将32位的主机字节序转换为网络字节序</span>
+</div></code></pre>
+<h3 id="tcp%E9%80%9A%E4%BF%A1%E6%B5%81%E7%A8%8B">TCP通信流程</h3>
+<pre class="hljs"><code><div><span class="hljs-comment">//TCP和UDP  - 传输层的协议</span>
+UDP：用户数据报协议，面向无连接，可以单播，多播，广播，面向数据报，不可靠
+tcp：传输控制协议，面向连接的，可靠的、基于字节，仅支持单播传输
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>是否创建连接</td>
+<td>面向连接</td>
+<td>无连接</td>
+</tr>
+<tr>
+<td>是否可靠</td>
+<td>可靠的</td>
+<td>不可靠</td>
+</tr>
+<tr>
+<td>连接的对象个数</td>
+<td>支持一对一</td>
+<td>一对一、一对多、多对一、多对多</td>
+</tr>
+<tr>
+<td>传输的方式</td>
+<td>面向字节流</td>
+<td>面向数据报</td>
+</tr>
+<tr>
+<td>首部开销</td>
+<td>最少20个字节</td>
+<td>8个字节</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>可靠性高的应用（文件传输）</td>
+<td>实时应用（视频会议，直播）</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/8bdd3d7af2b28674ae5250624ca7765040d27f2945b34324e9d76be76d7d163c.png" alt="图 9"></p>
+<pre class="hljs"><code><div><span class="hljs-comment">//TCP通信的流程</span>
+<span class="hljs-comment">//服务器端（接收被动连接的角色）</span>
+<span class="hljs-number">1.</span> 创建一个用于监听的套接字
+  - 监听：监听有客户端的连接
+  - 套接字：这个套接字其实就是一个文件描述符
+<span class="hljs-number">2.</span> 将这个监听的文件描述符和本地的IP和端口绑定（IP和端口就是服务器的地址信息）
+  - 客户端连接服务器的时候使用的就是这个IP和端口
+<span class="hljs-number">3.</span> 设置监听，监听的fd开始工作
+<span class="hljs-number">4.</span> 阻塞等待，当有客户端发起连接，解除阻塞，接手客户端的连接，会得到与客户端连接的套接字
+<span class="hljs-number">5.</span>通信
+    -接收数据
+    -发送数据
+<span class="hljs-number">6.</span>通信结束，断开连接
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">//客户端</span>
+<span class="hljs-number">1.</span>创建一个用于通信的套接字（fd）
+<span class="hljs-number">2.</span>连接服务器，需要指定连接的服务器的IP和端口
+<span class="hljs-number">3.</span>连接成功，客户端可以直接和服务器通信
+    - 接收数据
+    - 发送数据
+<span class="hljs-number">4.</span>通信结束，断开连接
+</div></code></pre>
+<h3 id="tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B">TCP三次握手</h3>
+<ul>
+<li>TCP提供了一种可靠、面向连接、字节流、传输层的服务，采用 <strong>三次握手</strong> 建立一个连接。采用四次挥手来关闭一个连接</li>
+<li>三次握手发生在客户端连接的时候，当调用connect()</li>
+</ul>
+<p><img src="images/db3920993dac646610579fd3f4087453265a89b2a527fe15a1824e4004da9e6e.png" alt="图 10"></p>
+<h3 id="tcp%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B">TCP四次挥手</h3>
+<p><img src="images/8990974779683dc1a4e005a7e4f0afc3b3cd4414e7a248c351580454ed7d79df.png" alt="图 11"></p>
+<p><img src="images/dbe76dd9989fec7f72ef652c606d14b7a7d510fc51ac025d7b6d519be33acfc2.png" alt="图 12"></p>
+<h3 id="tcp%E9%80%9A%E4%BF%A1%E5%B9%B6%E5%8F%91">TCP通信并发</h3>
+<ul>
+<li>要实现TCP通信服务器处理并发的任务，使用多线程或者多进程解决
+思路：
+<ol>
+<li>一个父进程，多个子进程</li>
+<li>父进程负责等待并接受客户端的连接</li>
+<li>子进程：完成通信，接受一个客户端连接,就创建一个子进程用于通信</li>
+</ol>
+</li>
+</ul>
+<pre><code class="language-mermaid"><div class="mermaid">sequenceDiagram
+    participant Client
+    participant Server
+    Client->>Server: SYN=1, Seq=ClientSeqNo
+    Server-->>Client: SYN=1, ACK=ClientSeqNo+1, Seq=ServerSeqNo
+    Client->>Server: ACK=ServerSeqNo+1
+
+</div></code></pre>
+<h3 id="io%E6%A8%A1%E5%9E%8B">I/O模型</h3>
+<ul>
+<li>阻塞等待
+<ul>
+<li>好处：不占用CPU宝贵的时间片</li>
+<li>缺点：同一时刻只能处理一个操作，效率低
+<ul>
+<li>多线程或者多进程解决-BIO模型
+<ul>
+<li>缺点：
+<ul>
+<li>1.线程或者进程会消耗资源</li>
+<li>2.线程或者进程调度消耗CPU资源</li>
+<li><strong>根本问题</strong>：blocking</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>非阻塞，忙轮询
+<ul>
+<li>优点：提高了程序的执行效率</li>
+<li>缺点：需要占用更多的CPU和系统资源
+<ul>
+<li><strong><font color = "#dd0000">&gt;使用IO多路转接技术select/poll/epoll</font></strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>IO多路转接技术
+<ul>
+<li>第一种：select/poll --<font color = "#dd0000">委托内核</font>
+<ul>
+<li>select代收只会告诉你有几个快递到了，但是哪个快递，你需要挨个遍历</li>
+</ul>
+</li>
+<li>第二种：epoll
+<ul>
+<li>epoll不仅会告诉你有几个快递到了，还会告诉你是哪个快递公司的快递</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="io%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8">I/O多路复用</h3>
+<p>I/O多路复用使得程序能同时监听多个文件描述符，能够提高程序的性能，Linux下实现I/O多路复用的系统调用主要有select、poll和epoll</p>
+<h4 id="tabletrtd-bgcolorgreyselecttdtrtable"><table><tr><td bgcolor=grey>select</td></tr></table></h4>
+<p><strong>主旨思想</strong>：</p>
+<ol>
+<li>首先要构造一个关于文件描述符的列表，将要监听的文件描述符添加到该列表中。</li>
+<li>调用一个系统函数，监听该列表中的文件描述符，直到这些描述符中的一个或者多个进程I/O操作时，该函数才返回<br>
+a. 这个函数是阻塞
+b. 函数对文件描述符的检测的操作是由内核完成的</li>
+<li>在返回时，它会告诉进程有多少描述符要进程I/O操作</li>
+</ol>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;sys/time.h&gt; </span></span>
+<span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;unistd.h&gt; </span></span>
+ 
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">select</span><span class="hljs-params">(
+<span class="hljs-keyword">int</span> maxfd,    <span class="hljs-comment">//监听的文件描述符的值最大的一个+1</span>
+fd_set * readfds,  <span class="hljs-comment">//可读事件文件描述符集合</span>
+fd_set * writefds,  <span class="hljs-comment">//可写事件文件描述符集合</span>
+struct timeval * timeout <span class="hljs-comment">//函数监听时间  写 NULL 则变成阻塞等待</span>
+)</span></span>;
+
+<span class="hljs-keyword">int</span> fd = <span class="hljs-built_in">open</span>(<span class="hljs-string">"a.txt"</span>,O_CREATE|O_RDONLY,<span class="hljs-number">0644</span>);  <span class="hljs-comment">//获取一个文件描述符</span>
+fd_set se;      <span class="hljs-comment">//声明描述符集合</span>
+FD_SET(fd,&amp;se); <span class="hljs-comment">//将fd这个文件描述符 添加到 文件描述符集合中</span>
+
+<span class="hljs-keyword">int</span> fd = <span class="hljs-built_in">open</span>(<span class="hljs-string">"a.txt"</span>,O_CREATE|O_RDONLY,<span class="hljs-number">0644</span>);  <span class="hljs-comment">//获取一个文件描述符</span>
+fd_set se;      <span class="hljs-comment">//声明描述符集合</span>
+FD_CLR(fd,&amp;se); <span class="hljs-comment">//将fd从文件描述符集合se中清除</span>
+
+FD_ZERO(&amp;se); <span class="hljs-comment">//清空集合se中的所有位</span>
+
+fd_set se;      
+FD_ISSET(fd,&amp;se); <span class="hljs-comment">//测试指定的文件描述符是否在该集合中</span>
+</div></code></pre>
+<ul>
+<li>fd_set 结构体看做一个整形数组，不超过1024</li>
+<li>select()的缺点：
+<ol>
+<li>每次调用select，都需要把fd集合从用户态拷贝到内核态，这个开销在fd很多时会很大</li>
+<li>每次同时调用select都需要在内核遍历传递进来的所有fd，这个开销在fd很多时也很大</li>
+<li>select支持的文件描述符数量太小了，默认是1024</li>
+<li>fds集合不能重用，每次都需要重置</li>
+</ol>
+</li>
+</ul>
+<h4 id="font-size--5-pollfont"><font size = 5 >poll</font></h4>
+<p>poll()没有最大文件描述符数量的限制</p>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;poll.h&gt;</span></span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">poll</span><span class="hljs-params">(struct pollfd *fds,<span class="hljs-comment">//是一个struct pollfd结构体数组，是一个需要检测的文件描述符的集合</span>
+<span class="hljs-keyword">nfds_t</span> nfds, <span class="hljs-comment">//用来指定第一个参数数组元素个数</span>
+<span class="hljs-keyword">int</span> timeout)</span></span>; <span class="hljs-comment">//指定等待的毫秒数，无论 I/O 是否准备好，poll() 都会返回.</span>
+
+<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pollfd</span>{</span>
+	<span class="hljs-keyword">int</span> fd;			<span class="hljs-comment">//文件描述符</span>
+	short events;	<span class="hljs-comment">//等待的事件</span>
+	short revents;	<span class="hljs-comment">//实际发生的事件</span>
+};
+
+</div></code></pre>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><code>timeout值</code></th>
+<th style="text-align:center"><code>说明</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">-1</td>
+<td style="text-align:center">阻塞</td>
+</tr>
+<tr>
+<td style="text-align:center">0</td>
+<td style="text-align:center">不阻塞</td>
+</tr>
+<tr>
+<td style="text-align:center">&gt;0</td>
+<td style="text-align:center">阻塞时长（毫秒）</td>
+</tr>
+</tbody>
+</table>
+<h4 id="epoll">epoll</h4>
+<h4 id="epoll%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F">epoll的工作模式：</h4>
+<ul>
+<li>
+<p>LT模式（水平触发）是缺省的工作方式</p>
+<ul>
+<li>假设委托内核检测读事件-&gt;检测fd的读缓冲区
+<ul>
+<li>读缓冲区有数据-&gt;epoll检测到了会通知用户<br>
+a. 用户不读数据，数据一直在缓冲区，epoll会一直通知<br>
+b. 用户只读了一部分数据，epoll会通知<br>
+c. 缓冲区的数据读完了，不通知</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>ET模式（边沿触发）是高速工作方式，只支持no-block-socket</p>
+<ul>
+<li>假设委托内核检测读事件-&gt;检测fd的读缓冲区
+<ul>
+<li>读缓冲区有数据-&gt;epoll检测到了会通知用户<br>
+a. 用户不读数据，数据一直在缓冲区，epoll下次检测的时候就不通知<br>
+b. 用户只读了一部分数据，epoll不通知<br>
+c. 缓冲区的数据读完了，不通知</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="udp%E9%80%9A%E4%BF%A1">UDP通信</h3>
+<pre class="hljs"><code><div>sendto()
+recvfrom()
+</div></code></pre>
+<h4 id="%E5%B9%BF%E6%92%AD">广播</h4>
+<p>向子网中多台计算机发送信息，并且子网中所有的计算机都可以接收到发送方发送的消息，每个广播消息都包含了一个特殊的IP地址，这个IP中子网内主机标志部分的二进制全部为1</p>
+<ol>
+<li>只能在 <strong>局域网</strong> 中使用</li>
+<li>客户端需要绑定服务器广播使用的端口，才能接收到广播信息</li>
+</ol>
+<h4 id="%E7%BB%84%E6%92%AD%E5%A4%9A%E6%92%AD">组播（多播）</h4>
+<p>单播地址标识单个IP接口，广播地址标识某个子网的所有IP接口，多播地址标识一组IP接口。单播和广播是寻址方案的两个极端（要么单个要么全部），躲避则在两者之间提供一种折中方案</p>
+<ol>
+<li>组播既可以用于局域网，也可以用于广域网</li>
+<li>客户端需要加入多播组，才能接收到多播的数据</li>
+</ol>
+<h4 id="%E6%9C%AC%E5%9C%B0%E5%A5%97%E6%8E%A5%E5%AD%97%E6%9C%AC%E5%9C%B0%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1">本地套接字：本地进程间通信</h4>
+<p>有关系的进程间的通信<br>
+没有关系的进程间的通信<br>
+本地套接字通信流程（和网络套接字类似TCP）：</p>
+<ul>
+<li>服务器端
+<ul>
+<li>1.创建监听的套接字</li>
+<li>2.监听的套接字绑定本地的套接字文件</li>
+<li>3.监听</li>
+<li>4.等待并接受连接请求</li>
+<li>5.通信
+<ul>
+<li>接受数据</li>
+<li>发送数据</li>
+</ul>
+</li>
+<li>6.关闭连接</li>
+</ul>
+</li>
+<li>客户端
+<ul>
+<li>1.创建通信的套接字</li>
+<li>2.监听的套接字绑定本地的IP端口</li>
+<li>3.连接服务器</li>
+<li>4.通信
+<ul>
+<li>接收数据</li>
+<li>发送数据</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="1%E9%98%BB%E5%A1%9E%E9%9D%9E%E9%98%BB%E5%A1%9E%E5%90%8C%E6%AD%A5%E5%BC%82%E6%AD%A5">1.阻塞/非阻塞、同步/异步</h3>
+<p>典型的一次IO的两个阶段是什么？数据就绪和数据读写</p>
+<ul>
+<li>数据就绪：根据系统IO操作的就绪状态
+<ul>
+<li>阻塞</li>
+<li>非阻塞</li>
+</ul>
+</li>
+<li>数据读写：根据应用程序和内核的交互方式
+<ul>
+<li>同步</li>
+<li>异步</li>
+</ul>
+</li>
+<li>在处理IO的时候，阻塞和非阻塞都是同步IO，只有使用了特殊的API才是异步IO</li>
+<li>同步表示A向B请求调用一个网络IO接口时（或者调用某个业务逻辑API接口时），数据的读写都是由请求方A自己来完成的（不管是阻塞还是非阻塞）；异步表示A向B请求调用一个网络IO接口时（或者调用某个业务逻辑API接口时），向B传入请求的事件以及事件发生时通知的方式，A就可以处理其他逻辑了，当B监听到事件处理完成后，会用事先约定好的通知方式，通知A处理结果</li>
+</ul>
+<h3 id="unixlinux%E4%B8%8A%E7%9A%84%E4%BA%94%E7%A7%8Dio%E6%A8%A1%E5%9E%8B">Unix/Linux上的五种IO模型</h3>
+<ul>
+<li>
+<p>阻塞 blocking</p>
+</li>
+<li>
+<p>非阻塞</p>
+</li>
+<li>
+<p>IO复用<br>
+同时阻塞多个IO操作</p>
+</li>
+<li>
+<p>信号驱动<br>
+Linux用套接字进行信号驱动IO，安装一个信号处理函数，进程继续运行并不阻塞，当IO事件就绪，进程收到SIGIO信号，然后处理IO事件</p>
+</li>
+<li>
+<p>异步<br>
+Linux中，可以调用aio_read函数钙素内核描述字缓冲区指针和缓冲区的大小、文件偏移及通知的方式，然后立即返回，当内核将数据拷贝到缓冲区后，再通知应用程序</p>
+<h3 id="web-server">Web Server</h3>
+<p>一个Web Server就是一个服务器软件（程序），或者运行这个服务器软件的硬件（计算机）。其主要功能是通过HTTP协议与客户端（通常是浏览器（Browser））进行通信，来接收，存储，处理来自客户端的HTTP请求，并对其请求做出HTTP响应，返回给客户端其请求的内容（文件，网页）或返回一个Error信息
+<img src="images/ff1a80283b31c52aa128e789d94cd97274e92c49ada13bc7bdce1a3a501e30c0.png" alt="图 13"></p>
+</li>
+</ul>
+<h3 id="http%E5%8D%8F%E8%AE%AE%E5%BA%94%E7%94%A8%E5%B1%82%E7%9A%84%E5%8D%8F%E8%AE%AE">HTTP协议（应用层的协议）</h3>
+<h3 id="%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%BC%96%E7%A8%8B%E5%9F%BA%E6%9C%AC%E6%A1%86%E6%9E%B6">服务器编程基本框架</h3>
+<p><img src="images/dbf119d46f2274ceb1d558fdfc547f1e5edb7cfd252e9701480e57633113a36a.png" alt="图 14"></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><code>模块</code></th>
+<th style="text-align:left"><code>功能</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">I/O处理单元</td>
+<td style="text-align:left">处理客户连接，读写网络数据</td>
+</tr>
+<tr>
+<td style="text-align:left">逻辑单元</td>
+<td style="text-align:left">业务进程或线程</td>
+</tr>
+<tr>
+<td style="text-align:left">网络存储单元</td>
+<td style="text-align:left">数据库、文件或缓存</td>
+</tr>
+<tr>
+<td style="text-align:left">请求队列</td>
+<td style="text-align:left">各单元之间的通信方式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="%E4%B8%A4%E7%A7%8D%E9%AB%98%E6%95%88%E7%9A%84%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E6%A8%A1%E5%BC%8F">两种高效的事件处理模式</h3>
+<p>服务器程序通常需要处理三类事件：I/O事件、信号及定时事件。有两种高效的事件处理模式：Reactor和Proactor，同步I/O模型通常用于实现Reactor模式，异步I/O模型通常用于实现Proactor模式。</p>
+<h4 id="reactor">Reactor</h4>
+<p>使用同步I/O（以epoll_wait为例）实现的Reactor模式的工作流程是：</p>
+<ol>
+<li>主线程网epoll内核事件表中注册socket上的读就绪事件。</li>
+<li>主线程调用epoll_wait等待socket上有数据可读。</li>
+<li>当socket上有数据可读时，epoll_wait通知主线程。主线程则将socket可读事件放入请求队列。</li>
+<li>睡眠在请求队列上的某个工作线程被唤醒，它从socket读取数据，并处理客户请求，然后网epoll内核事件表中注册该socket上的写就绪事件</li>
+<li>当主线程调用epoll_wait等待socket可写</li>
+<li>当socket可写时，epoll_wait通知主线程，主线程将socket可写事件放入请求队列</li>
+<li>睡眠在请求队列上的某个工作线程被唤醒，它往socket上写入服务器处理客户请求的结果</li>
+</ol>
+<h4 id="proactor">Proactor</h4>
+<p>Proactor模式将所I/O操作都交给主线程和内核来处理（进行读写），工作流程仅仅负责业务逻辑</p>
+<h4 id="%E6%A8%A1%E6%8B%9Fproactor">模拟Proactor</h4>
+<p><img src="images/62ddf85245082210e7d74f273e88f030f27bf57975eea8562926c8b54c6596ab.png" alt="图 15"></p>
+<h3 id="%E7%BA%BF%E7%A8%8B%E6%B1%A0">线程池</h3>
+<p>线程池是服务器预先创建的一组子线程，线程池中的线程数量应该和CPU数量差不多。线程池中的所有子线程都运行着相同的代码。</p>
+<ul>
+<li>空间换时间，浪费服务器的硬件资源，换取运行效率</li>
+</ul>
+
+</body>
+</html>
