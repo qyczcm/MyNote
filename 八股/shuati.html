@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>shuati.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h2 id="c">c++</h2>
+<h3 id="1%E4%B8%8B%E9%9D%A2%E8%AF%B4%E6%B3%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF">1.下面说法正确的是（）</h3>
+<p>A. 在C++语言中new和malloc都是在堆（heap）上进行动态的内存操作，可以互相代替。<br>
+B. C++语言重载（over load）是指子类重新定义父类的虚函数的方法。<br>
+C. C++语言函数既可以嵌套定义又可以递归调用。<br>
+D. 在C++语言中调用函数时，只能把实参的值传给形参，形参的值不能传送给实参（不考虑引用、指针等情况）。</p>
+<details>
+  <summary>点击显示答案</summary>
+  答案：D   
+<p>A，关键字new和malloc都是在堆（heap）上进行动态的内存申请，但是内存释放不同，new申请的内存用delete释放，malloc申请的内存用free释放，因此不能代替 B，子类重新定义父类的虚函数的方法 这种叫覆盖，override C，函数不能嵌套定义，也就是函数内部不能定义函数</p>
+</details>
+<h3 id="2%E4%BB%A5%E4%B8%8B%E5%85%B3%E4%BA%8E%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%8F%8F%E8%BF%B0%E9%94%99%E8%AF%AF%E7%9A%84%E6%98%AF">2.以下关于面向对象的描述错误的是：</h3>
+<p>A
+面向对象的基本特性是封装，继承和多态<br>
+B
+构造函数不可以是虚函数，析构函数可以是虚函数<br>
+C
+子类重新定义父类虚函数的方法叫做重载<br>
+D
+多态是为了接口重用，封装和继承是为了代码重用</p>
+<details>
+  <summary>点击显示答案</summary>
+正确答案：C
+<p>参考答案：答案 C 子类重新定义父类虚函数的方法叫做 <strong>覆写</strong></p>
+</details>
+<h3 id="3%E8%B0%83%E7%94%A8%E4%B8%80%E6%88%90%E5%91%98%E5%87%BD%E6%95%B0%E6%97%B6-%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E8%81%94%E7%BC%96%E7%9A%84%E6%83%85%E5%86%B5%E6%98%AF">3.调用一成员函数时, 使用动态联编的情况是？</h3>
+<p>A
+通过对象调用一虚函数<br>
+B
+通过指针或引用调用一虚函数<br>
+C
+通过对象调用静态函数<br>
+D
+通过指针或应用调用一静态函数</p>
+<details>
+  <summary>点击显示答案</summary>
+正确答案：B
+<p>动态联编(动态绑定)就是程序在运行的时候知道该调用哪个函数，而不是编译阶段，所以这个机制应该是由虚函数支持的，即运行时的多态，基类的某个成员函数声明为虚函数，派生类继承，而且同样重写该函数，那么当声明一个派生类的指针或者引用时，它所调用的函数是由该指针指向的对象确定的，这就是动态联编</p>
+</details>
+<h3 id="5%E5%A4%9A%E9%80%89%E9%A2%98-%E4%B8%8B%E9%9D%A2%E7%A8%8B%E5%BA%8F%E6%AE%B5%E7%9A%84%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C%E6%98%AF">5.多选题 下面程序段的运行结果是（ ）</h3>
+<pre class="hljs"><code><div><span class="hljs-keyword">char</span> s[] = <span class="hljs-string">"12345"</span>, *p = s;
+<span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, *(p+<span class="hljs-number">5</span>));
+</div></code></pre>
+<details>
+  <summary>点击显示答案</summary>
+正确答案：AB 
+<p>字符’\0’的ASCII码值就是0</p>
+</details>
+<h3 id="7%E5%9C%A832%E4%BD%8D%E7%B3%BB%E7%BB%9F%E4%B8%AD%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E6%89%93%E5%8D%B0%E7%BB%93%E6%9E%9C%E4%B8%BA">7.在32位系统中，下面代码打印结果为（）</h3>
+<pre class="hljs"><code><div><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> {</span>
+<span class="hljs-keyword">char</span> data[<span class="hljs-number">3</span>];
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span> </span>{ <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Base::f"</span> &lt;&lt; <span class="hljs-built_in">endl</span>; }
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span> </span>{ <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Base::g"</span> &lt;&lt; <span class="hljs-built_in">endl</span>; }
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">h</span><span class="hljs-params">()</span> </span>{ <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"Base::h"</span> &lt;&lt; <span class="hljs-built_in">endl</span>; }
+};
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-keyword">sizeof</span>(Base)&lt;&lt; <span class="hljs-built_in">endl</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<details>
+  <summary>点击显示答案</summary>
+<p>答案：8<br>
+data[3]占3个字节，因后面有虚函数，应开辟空间存放虚函数指针，虚函数指针占4个字节，data中剩余的一个字节不够，重新开辟4字节并且data中空出一个 <strong>字节对齐</strong> ，因此sizeof(Base) = (3 * sizeof(char) + 1(空余一个字节，进行对齐))+ 4(虚函数指针）</p>
+</details>
+<h3 id="8%E4%B8%8B%E9%9D%A2%E7%A8%8B%E5%BA%8F%E7%9A%84%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E6%98%AF">8.下面程序的输出结果是（）</h3>
+<pre class="hljs"><code><div><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span>
+<span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> <span class="hljs-built_in">std</span>;
+ 
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Base</span> {</span>
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"f0+"</span>;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"g0+"</span>;
+    }
+};
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Derived</span> :</span> <span class="hljs-keyword">public</span> Base {
+<span class="hljs-keyword">public</span>:
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">f</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"f+"</span>;
+    }
+    <span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">g</span><span class="hljs-params">()</span> </span>{
+        <span class="hljs-built_in">cout</span> &lt;&lt; <span class="hljs-string">"g+"</span>;
+    }
+};
+ 
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    Derived d;
+    Base* p = &amp;d;
+    p-&gt;f();
+    p-&gt;g();
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<details>
+  <summary>点击显示答案</summary>
+  f+：因为基类中f()为虚函数，通过基类指针执行的是多态操作，调用的是子类的f()函数； 
+<p>g0+：基类中g()不是虚函数，因此不是多态操作，执行的是基类的g()函数</p>
+</details>
+<h3 id="9%E6%89%A7%E8%A1%8C%E4%B8%8B%E5%88%97%E7%A8%8B%E5%BA%8F%E5%90%8E%E5%85%B6%E8%BE%93%E5%87%BA%E7%BB%93%E6%9E%9C%E6%98%AF">9.执行下列程序后，其输出结果是（ ）</h3>
+<pre class="hljs"><code><div><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">int</span> a = <span class="hljs-number">9</span>;
+    a += a -= a + a;
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%d\n"</span>, a);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+}
+</div></code></pre>
+<details>
+  <summary>点击显示答案</summary>
+从右往左运算 -18
+</details>
+<h3 id="10%E5%8F%82%E5%8A%A0%E4%BD%8D%E8%BF%90%E7%AE%97%E7%9A%84%E6%95%B0%E6%8D%AE%E5%85%B6%E7%B1%BB%E5%9E%8B%E4%B8%8D%E8%83%BD%E6%98%AF">10.参加位运算的数据其类型不能是（）。</h3>
+<p>A int<br>
+B char<br>
+C float<br>
+D  long int</p>
+<details>
+  <summary>点击显示答案</summary>
+无论是float  还是double,在内存中的存储分为三部分：符号位，指数位，尾数位；位运算符对它们没有意义   
+</details>
+<h3 id="11%E4%BB%A5%E4%B8%8B%E5%93%AA%E9%A1%B9%E6%8F%8F%E8%BF%B0%E6%98%AF%E6%AD%A3%E7%A1%AE%E7%9A%84">11.以下哪项描述是正确的</h3>
+<p>A
+父类的构造函数与析构函数不会自动被调用<br>
+B
+成员变量需要用public protected private修饰，在定义变量时不再需要var关键字<br>
+C
+父类中定义的静态成员，不可以在子类中直接调用<br>
+D
+包含抽象方法的类必须为抽象类，抽象类不能被实例化</p>
+<details>
+  <summary>点击显示答案</summary>
+BD  
+</details>
+<h1 id="%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80">计算机基础</h1>
+<h2 id="%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95">数据结构与算法</h2>
+<h3 id="6%E6%95%B0%E7%BB%84%E5%92%8C%E9%93%BE%E8%A1%A8%E7%9A%84%E5%8C%BA%E5%88%AB%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF">6.数组和链表的区别、适用场景</h3>
+<p><img src="../images/e03f673ee9b4b3bcff5509820a87a46ad4216e254d709367987d3e31693cec97.png" alt="图 0"></p>
+<details>
+  <summary>点击显示答案</summary>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>数组</code></th>
+<th><code>链表</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存储方式</td>
+<td>连续的内存块</td>
+<td>非连续的内存块</td>
+</tr>
+<tr>
+<td>插入操作</td>
+<td>需要移动后续元素，时间复杂度 O(N)</td>
+<td>只需要修改前后节点的指针即可，时间复杂度 O(1)</td>
+</tr>
+<tr>
+<td>删除操作</td>
+<td>需要移动后续元素，时间复杂度 O(N)</td>
+<td>只需要修改前后节点的指针即可，时间复杂度 O(1)</td>
+</tr>
+<tr>
+<td>随机访问</td>
+<td>支持，查找时间复杂度 O(1)</td>
+<td>不支持，查找时间复杂度 O(N)</td>
+</tr>
+<tr>
+<td>内存占用</td>
+<td>固定，需要预分配空间</td>
+<td>动态，只需要使用时申请空间</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>数据大小固定，随机访问多</td>
+<td>数据大小不固定，插入、删除操作频繁的场景</td>
+</tr>
+</tbody>
+</table>
+</details>
+<p>##网络</p>
+<h3 id="12%E5%AE%8C%E6%88%90%E8%B7%AF%E5%BE%84%E9%80%89%E6%8B%A9%E5%8A%9F%E8%83%BD%E6%98%AF%E5%9C%A8-osi-%E6%A8%A1%E5%9E%8B%E7%9A%84">12.完成路径选择功能是在 OSI 模型的 ()</h3>
+<p>A
+物理层
+B
+数据链路层
+C
+网络层
+D
+运输层</p>
+<details>
+  <summary>点击显示答案</summary>
+路由器在网络层
+</details>
+<h3 id="16%E5%9C%A8-osi-%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B%E4%B8%AD%E7%BD%91%E7%BB%9C%E5%B1%82%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E6%98%AF">16.在 OSI 七层模型中，网络层的主要功能是</h3>
+<p>A
+在信道上传输原始的比特流<br>
+B
+确保到达对方的各段信息正确无误<br>
+C
+确定数据包从源到目的如何选择路由<br>
+D
+加强物理层数据传输原始比特流的功能并进行流量控制</p>
+<details>
+  <summary>点击显示答案</summary>
+  C
+网络层的功能就是网络层设备路由器的功能 
+</details>
+<h3 id="17%E4%B8%8B%E5%88%97%E5%85%B3%E4%BA%8Eip%E8%B7%AF%E7%94%B1%E5%99%A8%E5%8A%9F%E8%83%BD%E7%9A%84%E6%8F%8F%E8%BF%B0%E4%B8%AD%E6%AD%A3%E7%A1%AE%E7%9A%84%E6%98%AF">17.下列关于IP路由器功能的描述中，正确的是（）。</h3>
+<p>Ⅰ．运行路由协议，设置路由表</p>
+<p>Ⅱ．监测到拥塞时，合理丢弃IP分组</p>
+<p>Ⅲ．对收到的IP分组头进行差错校验，确保传输的IP分组不丢失</p>
+<p>Ⅳ．根据收到的IP分组的目的IP地址，将其转发到合适的输出线路上</p>
+<details>
+  <summary>点击显示答案</summary>
+  C
+路由器只能保证发送出去的是正确无误的，不能保证接受到的是正确无误的   
+网络层对于数据是尽力交付，不保证数据的可靠性，可靠性保证由运输层来完成
+</details>
+<h3 id="13%E4%B8%8B%E5%88%97%E8%AE%BE%E5%A4%87%E4%B8%8D%E5%B1%9E%E4%BA%8E%E9%80%9A%E4%BF%A1%E8%AE%BE%E5%A4%87%E7%9A%84%E6%98%AF">13.下列设备不属于通信设备的是（        ）</h3>
+<p>A
+路由器
+B
+交换机
+C
+打印机
+D
+集线器</p>
+<details>
+  <summary>点击显示答案</summary>
+常见通信设备有：中继器、网桥、集线器、交换机、路由器、路由交换机。  
+</details>
+<h3 id="14%E5%85%AC%E5%8F%B8%E5%8A%9E%E5%85%AC%E5%AE%A4%E6%9C%89%E4%B8%80%E5%8F%B0%E4%BA%A4%E6%8D%A2%E6%9C%BA%E5%85%B7%E6%9C%8912%E4%B8%AA10100mbps%E7%AB%AF%E5%8F%A3%E5%92%8C4%E4%B8%AA1000mbps%E7%AB%AF%E5%8F%A3100m%E7%AB%AF%E5%8F%A3%E4%BD%BF%E7%94%A8%E5%8D%8A%E5%8F%8C%E5%B7%A5%E4%BC%A0%E8%BE%93%E6%A8%A1%E5%BC%8F1000m%E7%AB%AF%E5%8F%A3%E4%BD%BF%E7%94%A8%E5%85%A8%E5%8F%8C%E5%B7%A5%E4%BC%A0%E8%BE%93%E6%A8%A1%E5%BC%8F%E4%BA%A4%E6%8D%A2%E6%9C%BA%E6%80%BB%E5%B8%A6%E5%AE%BD%E5%BA%94%E4%B8%BA">14.公司办公室有一台交换机,具有12个10/100Mbps端口和4个1000Mbps端口，100M端口使用半双工传输模式，1000M端口使用全双工传输模式,交换机总带宽应为（ ）</h3>
+<p>A
+0.92G
+B
+1.6G
+C
+2.0G
+D
+9.2G</p>
+<details>
+  <summary>点击显示答案</summary>
+12个10/100Mbps端口 半双工  1.2G     4个1000Mbps端口  全双工   4G*2=8G     一共 9.2G  
+</details>
+<h3 id="15%E7%BD%91%E5%8D%A1%E7%9A%84%E4%B8%BB%E8%A6%81%E5%8A%9F%E8%83%BD%E4%B8%8D%E5%8C%85%E6%8B%AC">15.网卡的主要功能不包括（）。</h3>
+<p>A 将计算机连接到通信介质上<br>
+B
+进行电信号匹配<br>
+C
+实现数据传输<br>
+D
+网络互连</p>
+<details>
+  <summary>点击显示答案</summary>
+<p>网卡是工作在链路层的网络组件，是局域网中连接计算机和传输介质的接口，不仅能实现与局域网传输介质之间的物理连接和电信号匹配，还涉及帧的发送与接收、帧的封装与拆封、介质访问控制、数据的编码与解码以及数据缓存的功能等<br>
+所以网络互联的任务是网线的而不是网卡的</p>
+</details>
+
+</body>
+</html>
