@@ -1,11 +1,24 @@
-#include<iostream>
-
-using namespace std;
-
-int main(){
-    int n[][3]={10,20,30,40,50,60};
-    int (*p)[3];
-    p=n;
-    cout<<p[0][0]<<","<<*(p[0]+1)<<","<<(*p)[2]<<endl;
-    return 0;
+#include<iostream>        //动态规划
+#include<string>
+#include<vector>
+using namespace  std;
+int main() {
+    string s;
+    int n;
+    cin >> n;
+    cin >> s;
+    vector<int> v;
+    int count = 0;
+    string t;
+    for (int i = 0; i < s.size(); i++) {
+        if (s[i] >= '0' && s[i] <= '9')
+            t += s[i];
+        else {
+            if (t.size() > 0) {
+                v.push_back(stoi(t, 0, 10));
+                count++;
+                t = "";
+            }
+        }
+    }
 }
