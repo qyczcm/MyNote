@@ -19,8 +19,8 @@ void Lvalue_Reference(){
 在这个示例中，rvalueRef 是一个右值引用，它引用了一个临时的右值 42。右值引用通常用于移动语义和完美转发等高级应用场景中。
 */
 void Rvalue_Reference(){
-    int x = 5;
-    int&& rvalueRef = x;  // 使用&&符号声明右值引用
+
+    int&& rvalueRef = 5;  // 使用&&符号声明右值引用
     
 
     std::cout << "rvalueRef: " << rvalueRef << std::endl;  // 输出 rvalueRef: 42
