@@ -30,13 +30,10 @@ int main() {
         cin >> u >> v;
         adj_list[u].push_back(v);
     }
-
+    dfs(1, adj_list, path_len, exit_count);
     for (int i = 0; i < g; i++) {
         int query;
-        cin >> query;
-
-        dfs(1, adj_list, path_len, exit_count);
-        
+        cin >> query;        
         cout << exit_count[query] << endl;
     }
 
