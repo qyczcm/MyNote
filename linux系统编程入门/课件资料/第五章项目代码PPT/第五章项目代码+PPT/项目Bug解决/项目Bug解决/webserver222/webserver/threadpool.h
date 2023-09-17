@@ -105,20 +105,20 @@ void* threadpool< T >::worker( void* arg )
 template< typename T >
 void threadpool< T >::run() {
 
-    while (!m_stop) {
-        m_queuestat.wait();
-        m_queuelocker.lock();
-        if ( m_workqueue.empty() ) {
-            m_queuelocker.unlock();
+    while (!m_stop) { //线程未结束
+        m_queuestat.wait();//等待信号量，等待有任务要处理
+        m_queuelocker.lock();//加锁
+        if ( m_workqueue.empty() ) { //检查工作队列是否为空
+            m_queuelocker.unlock();//如果为空，解锁跳出循环
             continue;
         }
-        T* request = m_workqueue.front();
+        T* request = m_workqueue.front(); //取出队列中的第一个任务，并从队列移除
         m_workqueue.pop_front();
-        m_queuelocker.unlock();
-        if ( !request ) {
+        m_queuelocker.unlock();//解锁
+        if ( !request ) {//如果取得的任务不为空
             continue;
         }
-        request->process();
+        request->process();//处理
     }
 
 }
