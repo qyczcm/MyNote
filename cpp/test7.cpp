@@ -1,37 +1,20 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
+#include <string>
 
 int main() {
-    int n;
-    cin >> n;
+    std::string idCard = "420106202003015148";
 
-    vector<int> nums(n);
-    for (int i = 0; i < n; i++) {
-        cin >> nums[i];
-    }
-    sort(nums.begin(), nums.end());
-    int maxRes = nums[n - 1]; // 假设数组中的第一个数为最大的数
+    // 提取出生年份
+    int birthYear = std::stoi(idCard.substr(6, 4));
 
-    int getmax = 0;
-    for (int i = 0; i < n-1; i++) {
+    // 提取出生月份
+    int birthMonth = std::stoi(idCard.substr(10, 2));
 
-        int Res = maxRes & nums[i]; // 依次按位与运算
-        cout << Res << endl;
-        if(Res != 0 && Res % 2 == 0){
-            getmax = max(getmax, Res);
-        }
-        
-    }
+    // 提取出生日期
+    int birthDay = std::stoi(idCard.substr(12, 2));
 
-    int big = 0;
-    while(getmax % 2 == 0 && getmax != 0)
-    {
-        getmax /= 2;
-        big += 1;
-    }
-    cout << big;
+    std::cout << "生日：" << birthYear << "年" << birthMonth << "月" << birthDay << "日" << std::endl;
 
     return 0;
 }
+    

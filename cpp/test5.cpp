@@ -1,92 +1,75 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
+#include <chrono>
+#include <string>
 
-using namespace std;
-
-struct Edge {
-    int u, v, w, p;
-};
-
-int find(vector<int>& parent, int i) {
-    if (parent[i] == i) {
-        return i;
-    }
-    return find(parent, parent[i]);
+// 计算从 start 到 end 之间间隔的天数
+int daysBetween(const std::chrono::system_clock::time_point& start,
+                const std::chrono::system_clock::time_point& end)
+{
+    auto duration = std::chrono::duration_cast<std::chrono::hours>(end - start);
+    return static_cast<int>(duration.count() / 24);
 }
 
-void unionSet(vector<int>& parent, vector<int>& rank, int x, int y) {
-    int xRoot = find(parent, x);
-    int yRoot = find(parent, y);
-    if (rank[xRoot] < rank[yRoot]) {
-        parent[xRoot] = yRoot;
-    } else if (rank[xRoot] > rank[yRoot]) {
-        parent[yRoot] = xRoot;
-    } else {
-        parent[yRoot] = xRoot;
-        rank[xRoot]++;
+int main()
+{
+    // 提取身份证输入
+    std::string idCard;
+    std::cout << "请输入身份证号码：";
+    std::cin >> idCard;
+
+    // 提取生日信息
+    int year, month, day;
+
+    if (idCard.length() == 18) {
+        year = std::stoi(idCard.substr(6, 4));
+        month = std::stoi(idCard.substr(10, 2));
+        day = std::stoi(idCard.substr(12, 2));
     }
-}
-
-bool compareEdges(const Edge& a, const Edge& b) {
-    return a.w < b.w;
-}
-
-pair<vector<Edge>, int> kruskal(vector<Edge>& edges, int n) {
-    vector<Edge> selectedEdges;
-    int totalCost = 0;
-    vector<int> parent(n);
-    vector<int> rank(n, 0);
-
-    for (int i = 0; i < n; i++) {
-        parent[i] = i;
+    else if (idCard.length() == 15) {
+        year = 1900 + std::stoi(idCard.substr(6, 2));
+        month = std::stoi(idCard.substr(8, 2));
+        day = std::stoi(idCard.substr(10, 2));
+    }
+    else {
+        std::cout << "无效的身份证号码" << std::endl;
+        return 0;
     }
 
-    sort(edges.begin(), edges.end(), compareEdges);
+    // 构造生日日期时间戳
+    std::tm birthday_tm = {0};
+    birthday_tm.tm_year = year - 1900;
+    birthday_tm.tm_mon = month - 1;
+    birthday_tm.tm_mday = day;
+    auto birthday_time = std::mktime(&birthday_tm);
+    auto birthday = std::chrono::system_clock::from_time_t(birthday_time);
 
-    int selected = 0;
-    for (const auto& edge : edges) {
-        int u = edge.u;
-        int v = edge.v;
-        int w = edge.w;
-        int p = edge.p;
+    // 提取用户输入的当前年月日
+    int currentYear, currentMonth, currentDay;
+    std::cout << "请输入当前的年份：";
+    std::cin >> currentYear;
+    std::cout << "请输入当前的月份：";
+    std::cin >> currentMonth;
+    std::cout << "请输入当前的日期：";
+    std::cin >> currentDay;
 
-        if (find(parent, u) != find(parent, v)) {
-            unionSet(parent, rank, u, v);
-            selectedEdges.push_back(edge);
-            totalCost += w;
-            if (p == 1) {
-                selected++;
-            }
-        }
+    // 构造当前日期时间戳
+    std::tm current_tm = {0};
+    current_tm.tm_year = currentYear - 1900;
+    current_tm.tm_mon = currentMonth - 1;
+    current_tm.tm_mday = currentDay;
+    auto current_time = std::mktime(&current_tm);
+    auto now = std::chrono::system_clock::from_time_t(current_time);
+
+    // 计算与生日日期间隔的天数
+    bool is_after_birthday = false;
+    if (now > birthday) {
+        // 已经过了生日，计算下一年的生日日期
+        auto next_year = year + 1;
+        birthday_tm.tm_year = next_year - 1900;
+        birthday_time = std::mktime(&birthday_tm);
+        birthday = std::chrono::system_clock::from_time_t(birthday_time);
     }
-
-    if (selectedEdges.size() != n-1 || selected != 2) {
-        return make_pair(vector<Edge>(), -1);
-    }
-
-    return make_pair(selectedEdges, totalCost);
-}
-
-int main() {
-    int n, m;
-    cin >> n >> m;
-
-    vector<Edge> edges(m);
-    for (int i = 0; i < m; i++) {
-        cin >> edges[i].u >> edges[i].v >> edges[i].w >> edges[i].p;
-    }
-
-    pair<vector<Edge>, int> result = kruskal(edges, n);
-    if (result.second == -1) {
-        cout << -1 << endl;
-    } else {
-        cout << result.first.size() << endl;
-        for (const auto& edge : result.first) {
-            cout << edge.u << " " << edge.v << " " << edge.w << endl;
-        }
-        cout << result.second << endl;
-    }
+    std::cout << "距离下次生日还有 " << daysBetween(now, birthday) << " 天" << std::endl;
 
     return 0;
 }
