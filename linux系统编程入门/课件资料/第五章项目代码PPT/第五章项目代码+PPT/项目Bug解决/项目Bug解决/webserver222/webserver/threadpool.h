@@ -62,6 +62,7 @@ threadpool< T >::threadpool(int thread_number, int max_requests) :
     for ( int i = 0; i < thread_number; ++i ) {
         printf( "create the %dth thread\n", i);
         if(pthread_create(m_threads + i, NULL, worker, this ) != 0) {
+            //m_threads + i表示线程数组中的第i个元素，即保存线程ID的位置。
             delete [] m_threads;
             throw std::exception();
         }
@@ -120,7 +121,6 @@ void threadpool< T >::run() {
         }
         request->process();//处理
     }
-
 }
 
 #endif
